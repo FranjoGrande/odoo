@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+aqua_batch_admin,piscigranja.fish.batch access admin,model_piscigranja_fish_batch,group_aqua_admin,1,1,1,1
+aqua_batch_tech,piscigranja.fish.batch access tech,model_piscigranja_fish_batch,group_aqua_tech,1,1,1,0
+aqua_batch_user,piscigranja.fish.batch access user,model_piscigranja_fish_batch,group_aqua_user,1,0,1,0
+aqua_feed_admin,piscigranja.daily.feeding access admin,model_piscigranja_daily_feeding,group_aqua_admin,1,1,1,1
+aqua_feed_tech,piscigranja.daily.feeding access tech,model_piscigranja_daily_feeding,group_aqua_tech,1,1,1,0
+aqua_feed_user,piscigranja.daily.feeding access user,model_piscigranja_daily_feeding,group_aqua_user,1,1,1,0
+aqua_mort_admin,piscigranja.daily.mortality access admin,model_piscigranja_daily_mortality,group_aqua_admin,1,1,1,1
+aqua_mort_tech,piscigranja.daily.mortality access tech,model_piscigranja_daily_mortality,group_aqua_tech,1,1,1,0
+aqua_mort_user,piscigranja.daily.mortality access user,model_piscigranja_daily_mortality,group_aqua_user,1,1,1,0
+aqua_env_admin,piscigranja.water.parameter access admin,model_piscigranja_water_parameter,group_aqua_admin,1,1,1,1
+aqua_env_tech,piscigranja.water.parameter access tech,model_piscigranja_water_parameter,group_aqua_tech,1,1,1,0
+aqua_env_user,piscigranja.water.parameter access user,model_piscigranja_water_parameter,group_aqua_user,1,1,1,0

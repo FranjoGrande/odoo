@@ -1,0 +1,73 @@
+<odoo>
+    <record id="view_daily_mortality_tree" model="ir.ui.view">
+        <field name="name">piscigranja.daily.mortality.tree</field>
+        <field name="model">piscigranja.daily.mortality</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="batch_id"/>
+                <field name="quantity"/>
+                <field name="cause"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_daily_mortality_form" model="ir.ui.view">
+        <field name="name">piscigranja.daily.mortality.form</field>
+        <field name="model">piscigranja.daily.mortality</field>
+        <field name="arch" type="xml">
+            <form string="Mortalidad Diaria">
+                <sheet>
+                    <group>
+                        <field name="date"/>
+                        <field name="batch_id"/>
+                        <field name="quantity"/>
+                        <field name="cause"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_daily_mortality" model="ir.actions.act_window">
+        <field name="name">Mortalidades</field>
+        <field name="res_model">piscigranja.daily.mortality</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_health_treatment_tree" model="ir.ui.view">
+        <field name="name">piscigranja.health.treatment.tree</field>
+        <field name="model">piscigranja.health.treatment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="batch_id"/>
+                <field name="medication"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_health_treatment_form" model="ir.ui.view">
+        <field name="name">piscigranja.health.treatment.form</field>
+        <field name="model">piscigranja.health.treatment</field>
+        <field name="arch" type="xml">
+            <form string="Tratamiento">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="batch_id"/>
+                        <field name="medication"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_health_treatment" model="ir.actions.act_window">
+        <field name="name">Tratamientos</field>
+        <field name="res_model">piscigranja.health.treatment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

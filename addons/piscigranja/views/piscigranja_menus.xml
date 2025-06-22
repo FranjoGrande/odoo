@@ -1,0 +1,11 @@
+<odoo>
+    <menuitem id="menu_piscigranja_root" name="Piscigranja" sequence="10"/>
+
+    <menuitem id="menu_cycle" name="Ciclo Productivo" parent="menu_piscigranja_root" sequence="10"/>
+    <menuitem id="menu_batches" name="Lotes" parent="menu_cycle" action="action_fish_batch"/>
+    <menuitem id="menu_feeding" name="Alimentación" parent="menu_piscigranja_root" action="action_daily_feeding" sequence="20"/>
+    <menuitem id="menu_health" name="Sanidad" parent="menu_piscigranja_root" sequence="30"/>
+    <menuitem id="menu_mortality" name="Mortalidades" parent="menu_health" action="action_daily_mortality"/>
+    <menuitem id="menu_treatment" name="Tratamientos" parent="menu_health" action="action_health_treatment"/>
+    <menuitem id="menu_environment" name="Ambiental" parent="menu_piscigranja_root" action="action_water_parameter" sequence="40"/>
+</odoo>

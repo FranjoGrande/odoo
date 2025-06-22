@@ -1,0 +1,40 @@
+<odoo>
+    <record id="view_fish_batch_tree" model="ir.ui.view">
+        <field name="name">piscigranja.fish.batch.tree</field>
+        <field name="model">piscigranja.fish.batch</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="species"/>
+                <field name="start_date"/>
+                <field name="quantity"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_fish_batch_form" model="ir.ui.view">
+        <field name="name">piscigranja.fish.batch.form</field>
+        <field name="model">piscigranja.fish.batch</field>
+        <field name="arch" type="xml">
+            <form string="Lote de Peces">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="species"/>
+                        <field name="start_date"/>
+                        <field name="quantity"/>
+                        <field name="avg_weight"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fish_batch" model="ir.actions.act_window">
+        <field name="name">Lotes de Peces</field>
+        <field name="res_model">piscigranja.fish.batch</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Crear un nuevo lote</p>
+        </field>
+    </record>
+</odoo>
