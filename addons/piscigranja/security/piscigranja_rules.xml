@@ -1,0 +1,32 @@
+<odoo>
+    <record id="rule_piscigranja_company" model="ir.rule">
+        <field name="name">Piscigranja company rule</field>
+        <field name="model_id" ref="model_piscigranja_fish_batch"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('piscigranja.group_aqua_user')), (4, ref('piscigranja.group_aqua_tech')), (4, ref('piscigranja.group_aqua_admin'))]"/>
+    </record>
+    <record id="rule_piscigranja_daily_feeding" model="ir.rule">
+        <field name="name">Piscigranja feeding company rule</field>
+        <field name="model_id" ref="model_piscigranja_daily_feeding"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('piscigranja.group_aqua_user')), (4, ref('piscigranja.group_aqua_tech')), (4, ref('piscigranja.group_aqua_admin'))]"/>
+    </record>
+    <record id="rule_piscigranja_daily_mortality" model="ir.rule">
+        <field name="name">Piscigranja mortality company rule</field>
+        <field name="model_id" ref="model_piscigranja_daily_mortality"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('piscigranja.group_aqua_user')), (4, ref('piscigranja.group_aqua_tech')), (4, ref('piscigranja.group_aqua_admin'))]"/>
+    </record>
+    <record id="rule_piscigranja_health_treatment" model="ir.rule">
+        <field name="name">Piscigranja treatment company rule</field>
+        <field name="model_id" ref="model_piscigranja_health_treatment"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('piscigranja.group_aqua_user')), (4, ref('piscigranja.group_aqua_tech')), (4, ref('piscigranja.group_aqua_admin'))]"/>
+    </record>
+    <record id="rule_piscigranja_water_parameter" model="ir.rule">
+        <field name="name">Piscigranja water parameter company rule</field>
+        <field name="model_id" ref="model_piscigranja_water_parameter"/>
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('piscigranja.group_aqua_user')), (4, ref('piscigranja.group_aqua_tech')), (4, ref('piscigranja.group_aqua_admin'))]"/>
+    </record>
+</odoo>
