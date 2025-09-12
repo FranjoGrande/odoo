@@ -175,7 +175,15 @@ export class Composer extends Component {
         useEffect(
             () => {
                 if (this.fakeTextarea.el.scrollHeight) {
+                    let wasEmpty = false;
+                    if (!this.fakeTextarea.el.value) {
+                        wasEmpty = true;
+                        this.fakeTextarea.el.value = "0";
+                    }
                     this.ref.el.style.height = this.fakeTextarea.el.scrollHeight + "px";
+                    if (wasEmpty) {
+                        this.fakeTextarea.el.value = "";
+                    }
                 }
                 this.saveContentDebounced();
             },
@@ -490,7 +498,7 @@ export class Composer extends Component {
                     ev.preventDefault();
                     return;
                 }
-                if (this.isMobileOS) {
+                if (this.isMobileOS || ev.isComposing) {
                     return;
                 }
                 const shouldPost = this.props.mode === "extended" ? ev.ctrlKey : !ev.shiftKey;

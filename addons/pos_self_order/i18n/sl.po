@@ -331,7 +331,7 @@ msgstr "Nevarnost"
 #. module: pos_self_order
 #: model:ir.model.fields.selection,name:pos_self_order.selection__pos_self_order_custom_link__style__dark
 msgid "Dark"
-msgstr ""
+msgstr "Temno"
 
 #. module: pos_self_order
 #: model_terms:ir.ui.view,arch_db:pos_self_order.res_config_settings_view_form_menu
@@ -550,7 +550,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:pos_self_order.selection__pos_config__self_ordering_mode__kiosk
 #: model_terms:ir.ui.view,arch_db:pos_self_order.pos_self_order_search_view
 msgid "Kiosk"
-msgstr ""
+msgstr "Kiosk"
 
 #. module: pos_self_order
 #: model:ir.model.fields,field_description:pos_self_order.field_pos_self_order_custom_link__name
@@ -704,7 +704,7 @@ msgstr ""
 #. module: pos_self_order
 #: model_terms:ir.ui.view,arch_db:pos_self_order.pos_self_order_menu_item
 msgid "Open Kiosk"
-msgstr ""
+msgstr "Odpri kiosk"
 
 #. module: pos_self_order
 #. odoo-javascript
@@ -716,7 +716,7 @@ msgstr "Naroči"
 #. odoo-python
 #: code:addons/pos_self_order/models/pos_config.py:0
 msgid "Order Now"
-msgstr ""
+msgstr "Naroči zdaj"
 
 #. module: pos_self_order
 #. odoo-javascript
@@ -1274,7 +1274,7 @@ msgstr ""
 #: code:addons/pos_self_order/static/src/app/components/order_widget/order_widget.xml:0
 #: code:addons/pos_self_order/static/src/app/pages/cart_page/cart_page.xml:0
 msgid "Your Order"
-msgstr ""
+msgstr "Vaše naročilo"
 
 #. module: pos_self_order
 #. odoo-javascript

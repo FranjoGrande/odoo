@@ -1,5 +1,5 @@
 import { addBusMessageHandler, busModels } from "@bus/../tests/bus_test_helpers";
-import { after, before, expect, getFixture, registerDebugInfo } from "@odoo/hoot";
+import { after, before, expect, getFixture, registerDebugInfo, test } from "@odoo/hoot";
 import { hover as hootHover, queryFirst, resize } from "@odoo/hoot-dom";
 import { Deferred } from "@odoo/hoot-mock";
 import {
@@ -141,7 +141,7 @@ export const mailModels = {
  */
 export function onRpcBefore(route, callback) {
     if (typeof route === "string") {
-        const handler = registry.category("mock_rpc").get(route);
+        const handler = registry.category("mail.mock_rpc").get(route);
         patchWithCleanup(handler, { before: callback });
     } else {
         const onRpcBeforeGlobal = registry.category("mail.on_rpc_before_global").get(true);
@@ -157,7 +157,7 @@ export function onRpcBefore(route, callback) {
  * @param {Function} callback - The function to execute just before the end of RPC call.
  */
 export function onRpcAfter(route, callback) {
-    const handler = registry.category("mock_rpc").get(route);
+    const handler = registry.category("mail.mock_rpc").get(route);
     patchWithCleanup(handler, { after: callback });
 }
 
@@ -165,6 +165,14 @@ let archs = {};
 export function registerArchs(newArchs) {
     archs = newArchs;
     after(() => (archs = {}));
+}
+
+export function onlineTest(...args) {
+    if (navigator.onLine) {
+        return test(...args);
+    } else {
+        return test.skip(...args);
+    }
 }
 
 export async function openDiscuss(activeId, { target } = {}) {
@@ -275,6 +283,8 @@ async function addSwitchTabDropdownItem(rootTarget, tabTarget) {
     dropdownDiv.querySelector(".dropdown-menu").appendChild(li);
 }
 
+let discussAsTabId = 0;
+
 /**
  * @param {{
  *  asTab?: boolean;
@@ -318,13 +328,16 @@ export async function start(options) {
     }
     let env;
     if (options?.asTab) {
+        discussAsTabId++;
         restoreRegistry(registry);
         const rootTarget = target;
         target = document.createElement("div");
         target.classList.add("o-mail-Discuss-asTabContainer");
+        target.dataset.asTabId = discussAsTabId;
         rootTarget.appendChild(target);
         addSwitchTabDropdownItem(rootTarget, target);
-        env = await makeMockEnv({}, { makeNew: true });
+        const selector = `.o-mail-Discuss-asTabContainer[data-as-tab-id="${target.dataset.asTabId}"]`;
+        env = await makeMockEnv({ discussAsTabId, selector }, { makeNew: true });
     } else {
         env = getMockEnv() || (await makeMockEnv({}));
     }

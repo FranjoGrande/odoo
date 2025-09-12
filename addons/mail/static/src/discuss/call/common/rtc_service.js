@@ -645,6 +645,9 @@ export class Rtc extends Record {
      * @param {Boolean} [param2.important] if the log is important and should be kept even if logRtc is disabled
      */
     log(session, entry, { error, step, state, important, ...data } = {}) {
+        if (!session) {
+            return;
+        }
         session.logStep = entry;
         if (!this.store.settings.logRtc && !important) {
             return;
@@ -853,7 +856,6 @@ export class Rtc extends Record {
             if (session.eq(this.selfSession)) {
                 continue;
             }
-            this.log(session, "init call", { step: "init call" });
             this.p2pService.addPeer(session.id, { sequence });
         }
     }
@@ -926,6 +928,9 @@ export class Rtc extends Record {
         this.state.channel.rtcInvitingSession = undefined;
         if (camera) {
             await this.toggleVideo("camera");
+        }
+        if (!this.selfSession) {
+            return;
         }
         await this._initConnection();
         await this.resetAudioTrack({ force: audio });
@@ -1261,6 +1266,10 @@ export class Rtc extends Record {
             stopVideo();
             return;
         }
+        if (!this.selfSession) {
+            closeStream(sourceStream);
+            return;
+        }
         let outputTrack = sourceStream ? sourceStream.getVideoTracks()[0] : undefined;
         if (outputTrack) {
             outputTrack.addEventListener("ended", async () => {
@@ -1572,10 +1581,11 @@ export const rtcService = {
      * @param {Partial<import("services").Services>} services
      */
     start(env, services) {
-        const rtc = env.services["mail.store"].rtc;
+        const store = env.services["mail.store"];
+        const rtc = store.rtc;
         rtc.p2pService = services["discuss.p2p"];
         rtc.p2pService.acceptOffer = async (id, sequence) => {
-            const session = await this.store.RtcSession.getWhenReady(Number(id));
+            const session = await store.RtcSession.getWhenReady(Number(id));
             /**
              * We only accept offers for new connections (higher sequence),
              * or offers that renegotiate an existing connection (same sequence).

@@ -119,6 +119,11 @@ class TestSaleProject(HttpCase, TestSaleProjectCommon):
         self.start_tour('/odoo', 'task_create_sol_tour', login='admin')
 
     def test_project_create_sol_ui(self):
+        self.product_order_service5 = self.env['product.product'].create({
+            'name': 'New Sale order line',
+            'type': 'service',
+            'invoice_policy': 'delivery',
+        })
         self.start_tour('/odoo', 'project_create_sol_tour', login='admin')
 
     def test_sale_order_with_project_task(self):
@@ -1169,7 +1174,13 @@ class TestSaleProject(HttpCase, TestSaleProjectCommon):
             {'order_id': so.id, 'product_id': self.product_order_service3.id, 'sequence': 3}, # service_tracking': 'task_in_project'
             {'order_id': so.id, 'product_id': self.product_order_service4.id, 'sequence': 4}, # service_tracking: 'project_only'
         ])
+        n_analytic_accounts = self.env['account.analytic.account'].search_count([])
         so.action_confirm()
+        self.assertEqual(
+            n_analytic_accounts + 1,
+            self.env['account.analytic.account'].search_count([]),
+            "Only one analytic account should have been created due to the generation of both `sol_task_in_template_project` and `sol_new_project` projects."
+        )
         self.assertEqual(len(so.order_line.project_id | so.order_line.task_id.project_id), 3, "Three projects should be linked to the SO.")
         self.assertFalse(sol_no_project.project_id, "`sol_no_project` should not generate any project.")
         self.assertEqual(

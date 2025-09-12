@@ -1,5 +1,6 @@
 from functools import wraps
 from lxml import etree
+import re
 from types import SimpleNamespace
 
 from odoo import models
@@ -38,7 +39,6 @@ class AccountEdiXmlUBL21JO(models.AbstractModel):
             return self._round_max_dp(result)
         return wrapper
 
-    @approximate
     def _get_line_amount_before_discount_jod(self, base_line):
         line = base_line['record']
         if line.discount < 100:
@@ -103,13 +103,17 @@ class AccountEdiXmlUBL21JO(models.AbstractModel):
         for invoice_line_id, invoice_line in enumerate(invoice_lines, 1):
             if line.product_id == invoice_line.product_id \
                     and line.name == invoice_line.name \
-                    and line.price_unit == invoice_line.price_unit:
+                    and line.price_unit == invoice_line.price_unit \
+                    and line.discount == invoice_line.discount:
                 line_id = invoice_line_id
                 break
         if line_id == -1:
             line_id = n + default_id
 
         return line_id
+
+    def _sanitize_phone(self, raw):
+        return re.sub(r'[^0-9]', '', raw or '')[:15]
 
     ########################################################
     # overriding vals methods of account_edi_xml_ubl_20 file
@@ -417,7 +421,7 @@ class AccountEdiXmlUBL21JO(models.AbstractModel):
             'accounting_customer_party_vals': {
                 'party_vals': self._get_empty_party_vals() if is_refund else self._get_partner_party_vals(customer, role='customer'),
                 'accounting_contact': {
-                    'telephone': '' if is_refund else invoice.partner_id.phone or invoice.partner_id.mobile,
+                    'telephone': '' if is_refund else self._sanitize_phone(invoice.partner_id.phone or invoice.partner_id.mobile),
                 },
             },
             'seller_supplier_party_vals': {
